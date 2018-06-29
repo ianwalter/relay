@@ -25,11 +25,14 @@ module.exports = class Relay {
   proxy (options) {
     return async (req, res, next) => {
       try {
-        const response = await this.request(req, options)
-        res.set(response.headers).status(response.statusCode).end(response.body)
+        this.send(res, await this.request(req, options))
       } catch (err) {
         next(err)
       }
     }
+  }
+
+  send (res, { headers, statusCode, body }) {
+    res.set(headers).status(statusCode).end(body)
   }
 }
