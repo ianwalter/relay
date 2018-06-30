@@ -1,16 +1,22 @@
 {
   "name": "@ianwalter/relay",
   "version": "1.0.0",
-  "description": "",
+  "description": "A flexible API to forward HTTP requests to antoher server",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "lint": "eslint --ext js ."
   },
-  "keywords": [],
+  "keywords": [
+    "forward",
+    "proxy",
+    "http",
+    "requests"
+  ],
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
   "license": "ISC",
   "devDependencies": {
+    "@appjumpstart/launch": "^2.0.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",

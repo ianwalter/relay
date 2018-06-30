@@ -9,7 +9,6 @@ test('proxy works', async done => {
   const app = express()
   const relay = new Relay({ baseUrl })
   app.get(path, relay.proxy())
-  // TODO: add error middleware.
   const res = await request(app).get(path)
   expect(res.statusCode).toBe(201)
   expect(res.body.foo).toEqual('Hello World!')
