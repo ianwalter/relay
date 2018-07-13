@@ -4,7 +4,9 @@
   "description": "A flexible API to forward HTTP requests to another server",
   "main": "index.js",
   "scripts": {
+    "pretest": "launch mock.js",
     "test": "jest",
+    "posttest": "launch --kill",
     "lint": "eslint --ext js ."
   },
   "keywords": [

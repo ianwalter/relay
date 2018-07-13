@@ -10,8 +10,7 @@ test('send returns the response successfully', async done => {
   const relay = new Relay({ baseUrl })
   app.get(path, async (req, res) => {
     try {
-      const response = await relay.request(req)
-      relay.send(res, response)
+      relay.send(res, await relay.request(req))
     } catch (err) {
       done.fail(err)
     } finally {
@@ -19,7 +18,6 @@ test('send returns the response successfully', async done => {
     }
   })
   const response = await request(app).get(path)
-  console.log(response.body)
   expect(response.body.foo).toEqual('Hello World!')
   done()
 })
