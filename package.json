@@ -4,7 +4,9 @@
   "description": "A flexible API to forward HTTP requests to another server",
   "main": "index.js",
   "scripts": {
+    "pretest": "launch mock.js",
     "test": "jest",
+    "posttest": "launch --kill",
     "lint": "eslint --ext js ."
   },
   "keywords": [
@@ -16,7 +18,7 @@
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
   "license": "ISC",
   "devDependencies": {
-    "@appjumpstart/launch": "^2.0.1",
+    "@appjumpstart/launch": "^2.0.2",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
