@@ -1,7 +1,7 @@
 {
   "name": "@ianwalter/relay",
   "version": "1.0.0",
-  "description": "A flexible API to forward HTTP requests to antoher server",
+  "description": "A flexible API to forward HTTP requests to another server",
   "main": "index.js",
   "scripts": {
     "test": "jest",
