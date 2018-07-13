@@ -2,18 +2,17 @@ const got = require('got')
 
 module.exports = class Relay {
   constructor (options = {}) {
-    this.options = options
+    const defaults = { throwHttpErrors: false }
+    this.options = Object.assign({}, defaults, options)
   }
 
   extractOptions (request, additional = {}) {
-    const options = Object.assign({}, request, additional)
-    const url = this.options.baseUrl
-      ? `${this.options.baseUrl}${options.url}`
-      : options.url
+    const options = Object.assign({}, request, this.options, additional)
     return {
+      throwHttpErrors: options.throwHttpErrors,
       method: options.method,
       headers: Object.assign({}, request.headers, additional.headers),
-      url
+      url: options.baseUrl ? `${options.baseUrl}${options.url}` : options.url
     }
   }
 
