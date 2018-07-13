@@ -1,5 +1,5 @@
 # relay
-> A flexible API to forward HTTP requests to antoher server
+> A flexible API to forward HTTP requests to another server
 
 [![Npm page][npm-image]][npm-url]
 [![Build status][build-image]][build-url]
