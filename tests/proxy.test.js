@@ -5,7 +5,7 @@ const Relay = require('../')
 const baseUrl = 'http://localhost:7331'
 const path = '/could-it-be'
 
-test('proxy works', async done => {
+test('proxy relays request', async done => {
   const app = express()
   const relay = new Relay({ baseUrl })
   app.get(path, relay.proxy())

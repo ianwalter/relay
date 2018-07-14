@@ -5,7 +5,7 @@ const Relay = require('../')
 const baseUrl = 'http://localhost:7331'
 const path = '/could-it-be'
 
-test('send returns the 200 response successfully', async done => {
+test('send returns a 200 response successfully', async done => {
   const app = express()
   const relay = new Relay({ baseUrl })
   app.get(path, async (req, res) => {
@@ -22,7 +22,7 @@ test('send returns the 200 response successfully', async done => {
   done()
 })
 
-test('send returns the 404 response successfully', async done => {
+test('send returns a 404 response successfully', async done => {
   const app = express()
   const relay = new Relay({ baseUrl })
   const missingPath = '/missing-path'

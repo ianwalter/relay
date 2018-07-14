@@ -9,8 +9,7 @@ module.exports = class Relay {
   extractOptions (request, additional = {}) {
     const options = Object.assign({}, request, this.options, additional)
     return {
-      throwHttpErrors: options.throwHttpErrors,
-      method: options.method,
+      ...options,
       headers: Object.assign({}, request.headers, additional.headers),
       url: options.baseUrl ? `${options.baseUrl}${options.url}` : options.url
     }
