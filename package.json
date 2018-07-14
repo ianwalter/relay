@@ -19,6 +19,7 @@
   "license": "ISC",
   "devDependencies": {
     "@appjumpstart/launch": "^2.0.2",
+    "body-parser": "^1.18.3",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",

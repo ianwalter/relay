@@ -3,10 +3,10 @@ const request = require('supertest')
 const Relay = require('../')
 
 const baseUrl = 'http://hey.mami'
-const path = '/could-i-be'
-const url = baseUrl + path
 
 test('extractOptions works without initial options', async done => {
+  const path = '/could-it-be'
+  const url = baseUrl + path
   const app = express()
   const relay = new Relay()
   app.get(path, (req, res) => {
@@ -25,19 +25,22 @@ test('extractOptions works without initial options', async done => {
 })
 
 test('extractOptions works with initial options', async done => {
+  const path = '/mirror'
+  const url = baseUrl + path
   const app = express()
   const relay = new Relay({ baseUrl })
-  app.get(path, (req, res) => {
+  app.post(path, (req, res) => {
     try {
       const options = relay.extractOptions(req)
       expect(options.method).toEqual('GET')
       expect(options.url).toEqual(url)
+      expect(typeof options.body).toBe('string')
     } catch (err) {
       done.fail(err)
     } finally {
       res.end()
     }
   })
-  await request(app).get('/')
+  await request(app).post('/').send({ artist: 'Little Dragon' })
   done()
 })
