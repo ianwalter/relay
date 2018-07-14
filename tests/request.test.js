@@ -1,5 +1,7 @@
 const express = require('express')
 const request = require('supertest')
+const bodyParser = require('body-parser')
+
 const Relay = require('../')
 
 const baseUrl = 'http://localhost:7331'
@@ -23,15 +25,15 @@ test('request relays a GET request', async done => {
   done()
 })
 
-test('request relays a POST request', async done => {
+test.only('request relays a POST request', async done => {
   const path = '/mirror'
   const app = express()
+  app.use(bodyParser.json())
   const relay = new Relay({ baseUrl })
   const payload = { artist: 'Little Dragon' }
   app.post(path, async (req, res) => {
     try {
       const response = await relay.request(req)
-      console.log(response)
       const body = JSON.parse(response.body)
       expect(body).toEqual(payload)
     } catch (err) {
