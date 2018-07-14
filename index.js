@@ -10,6 +10,9 @@ module.exports = class Relay {
     const options = Object.assign({}, request, this.options, additional)
     return {
       ...options,
+      body: typeof options.body === 'string'
+        ? options.body
+        : JSON.stringify(options.body),
       headers: Object.assign({}, request.headers, additional.headers),
       url: options.baseUrl ? `${options.baseUrl}${options.url}` : options.url
     }
