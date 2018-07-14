@@ -29,7 +29,7 @@
     "eslint-plugin-standard": "^3.1.0",
     "express": "^4.16.3",
     "jest": "^22.4.3",
-    "np": "^2.20.1",
+    "np": "^3.0.4",
     "supertest": "^3.1.0"
   },
   "jest": {
