@@ -25,7 +25,7 @@ test('request relays a GET request', async done => {
   done()
 })
 
-test.only('request relays a POST request', async done => {
+test('request relays a POST request', async done => {
   const path = '/mirror'
   const app = express()
   app.use(bodyParser.json())

@@ -23,6 +23,23 @@ module.exports = class Relay {
     return got(options.url, options)
   }
 
+  static proxy (options) {
+    return async (req, res, next) => {
+      if (req.app.locals.relay) {
+        try {
+          req.app.locals.relay.send(
+            res,
+            await req.app.locals.relay.request(req, options)
+          )
+        } catch (err) {
+          next(err)
+        }
+      } else {
+        next(new Error('relay not found in app.locals'))
+      }
+    }
+  }
+
   proxy (options) {
     return async (req, res, next) => {
       try {
