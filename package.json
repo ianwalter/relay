@@ -18,7 +18,7 @@
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
   "license": "ISC",
   "devDependencies": {
-    "@appjumpstart/launch": "^2.0.2",
+    "@appjumpstart/launch": "^2.0.3",
     "body-parser": "^1.18.3",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
