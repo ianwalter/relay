@@ -27,10 +27,11 @@ module.exports = class Relay {
     return async (req, res, next) => {
       if (req.app.locals.relay) {
         try {
-          req.app.locals.relay.send(
-            res,
-            await req.app.locals.relay.request(req, options)
-          )
+          if (typeof options === 'function') {
+            options = options(req, res, next)
+          }
+          const response = await req.app.locals.relay.request(req, options)
+          req.app.locals.relay.send(res, response)
         } catch (err) {
           next(err)
         }
