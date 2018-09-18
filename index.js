@@ -6,21 +6,18 @@ module.exports = class Relay {
     this.options = Object.assign({}, defaults, options)
   }
 
-  extractOptions (request, additional = {}) {
-    const options = Object.assign({}, request, this.options, additional)
-    return {
-      ...options,
-      body: typeof options.body === 'string'
-        ? options.body
-        : JSON.stringify(options.body),
-      headers: Object.assign({}, request.headers, additional.headers),
-      url: options.baseUrl ? `${options.baseUrl}${options.url}` : options.url
-    }
-  }
-
-  async request (req, additional) {
-    const options = this.extractOptions(req, additional)
-    return got(options.url, options)
+  async request (req, additional = {}) {
+    const options = Object.assign({ body: req.body }, this.options, additional)
+    const isBodyObject = typeof options.body === 'object'
+    return got(
+      req.url,
+      {
+        ...options,
+        method: req.method,
+        body: isBodyObject ? JSON.stringify(options.body) : options.body,
+        headers: Object.assign({}, req.headers, additional.headers)
+      }
+    )
   }
 
   static proxy (options) {

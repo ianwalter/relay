@@ -4,9 +4,11 @@
   "description": "A flexible API to forward HTTP requests to another server",
   "main": "index.js",
   "scripts": {
-    "pretest": "launch mock.js",
+    "mock:up": "launch mock.js",
+    "mock:down": "launch --kill",
+    "pretest": "npm run mock:up",
     "test": "jest",
-    "posttest": "launch --kill",
+    "posttest": "npm run mock:down",
     "lint": "eslint --ext js ."
   },
   "keywords": [
@@ -17,6 +19,9 @@
   ],
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
   "license": "ISC",
+  "dependencies": {
+    "got": "^9.2.2"
+  },
   "devDependencies": {
     "@appjumpstart/launch": "^2.0.3",
     "body-parser": "^1.18.3",
@@ -46,9 +51,6 @@
     "plugins": [
       "jest"
     ]
-  },
-  "dependencies": {
-    "got": "^8.3.1"
   },
   "engines": {
     "node": ">=10.0.0"

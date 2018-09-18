@@ -11,4 +11,10 @@ app.get('/could-it-be', (_, res) => {
 
 app.post('/mirror', (req, res) => res.type('json').status(200).send(req.body))
 
-app.listen(7331)
+app.listen(7331, err => {
+  if (err) {
+    console.error(err)
+  } else {
+    console.info('Mock server started!')
+  }
+})
