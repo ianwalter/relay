@@ -9,8 +9,16 @@ const baseUrl = 'http://localhost:7331'
 
 test('request doesnt add falsy options', () => {
   const relay = new Relay({ baseUrl })
-  relay.request({ url: '/test' })
-  expect(got).toHaveBeenCalledWith('/test', { baseUrl, throwHttpErrors: false })
+  const url = '/test'
+  const headers = { 'Content-Type': 'application/json' }
+  const authHeader = { 'Authorization': 'Bearer abc123' }
+  const options = {
+    baseUrl,
+    headers: { ...headers, ...authHeader },
+    throwHttpErrors: false
+  }
+  relay.request({ url, headers }, { headers: authHeader })
+  expect(got).toHaveBeenCalledWith(url, options)
 })
 
 test('request relays a GET request', async done => {

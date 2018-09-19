@@ -1,4 +1,5 @@
 const got = require('got')
+const merge = require('deepmerge')
 
 module.exports = class Relay {
   constructor (options = {}) {
@@ -6,17 +7,17 @@ module.exports = class Relay {
     this.options = Object.assign({}, defaults, options)
   }
 
-  async request (req, additional = {}) {
-    const options = {
-      ...(req.body ? { body: req.body } : {}),
-      ...(req.method ? { method: req.method } : {}),
-      ...(req.headers ? { headers: req.headers } : {})
+  async request (initial, additional = {}) {
+    const initialOptions = {
+      ...(initial.body ? { body: initial.body } : {}),
+      ...(initial.method ? { method: initial.method } : {}),
+      ...(initial.headers ? { headers: initial.headers } : {})
     }
-    Object.assign(options, this.options, additional)
+    const options = merge.all([initialOptions, this.options, additional])
     if (typeof options.body === 'object') {
       options.body = JSON.stringify(options.body)
     }
-    return got(req.url, options)
+    return got(initial.url, options)
   }
 
   static proxy (options) {
