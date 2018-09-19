@@ -1,10 +1,17 @@
 const express = require('express')
 const request = require('supertest')
 const bodyParser = require('body-parser')
+const got = require('got')
 
 const Relay = require('../')
 
 const baseUrl = 'http://localhost:7331'
+
+test('request doesnt add falsy options', () => {
+  const relay = new Relay({ baseUrl })
+  relay.request({ url: '/test' })
+  expect(got).toHaveBeenCalledWith('/test', { baseUrl, throwHttpErrors: false })
+})
 
 test('request relays a GET request', async done => {
   const path = '/could-it-be'

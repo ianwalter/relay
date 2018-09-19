@@ -7,17 +7,16 @@ module.exports = class Relay {
   }
 
   async request (req, additional = {}) {
-    const options = Object.assign({ body: req.body }, this.options, additional)
-    const isBodyObject = typeof options.body === 'object'
-    return got(
-      req.url,
-      {
-        ...options,
-        method: req.method,
-        body: isBodyObject ? JSON.stringify(options.body) : options.body,
-        headers: Object.assign({}, req.headers, additional.headers)
-      }
-    )
+    const options = {
+      ...(req.body ? { body: req.body } : {}),
+      ...(req.method ? { method: req.method } : {}),
+      ...(req.headers ? { headers: req.headers } : {})
+    }
+    Object.assign(options, this.options, additional)
+    if (typeof options.body === 'object') {
+      options.body = JSON.stringify(options.body)
+    }
+    return got(req.url, options)
   }
 
   static proxy (options) {
