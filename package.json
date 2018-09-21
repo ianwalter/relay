@@ -55,5 +55,13 @@
   },
   "engines": {
     "node": ">=10.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianwalter/relay.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ianwalter/relay/issues"
+  },
+  "homepage": "https://github.com/ianwalter/relay#readme"
 }
