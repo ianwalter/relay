@@ -4,7 +4,7 @@ const merge = require('deepmerge')
 module.exports = class Relay {
   constructor (options = {}) {
     const defaults = { throwHttpErrors: false }
-    this.options = Object.assign({}, defaults, options)
+    this.options = merge(defaults, options)
   }
 
   async request (initial, additional = {}) {
@@ -24,10 +24,11 @@ module.exports = class Relay {
     return async (req, res, next) => {
       if (req.app.locals.relay) {
         try {
+          let additional = options
           if (typeof options === 'function') {
-            options = options(req, res, next)
+            additional = options(req, res, next)
           }
-          const response = await req.app.locals.relay.request(req, options)
+          const response = await req.app.locals.relay.request(req, additional)
           req.app.locals.relay.send(res, response)
         } catch (err) {
           next(err)
