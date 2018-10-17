@@ -23,16 +23,7 @@ module.exports = class Relay {
   static proxy (options) {
     return async (req, res, next) => {
       if (req.app.locals.relay) {
-        try {
-          let additional = options
-          if (typeof options === 'function') {
-            additional = options(req, res, next)
-          }
-          const response = await req.app.locals.relay.request(req, additional)
-          req.app.locals.relay.send(res, response)
-        } catch (err) {
-          next(err)
-        }
+        req.app.locals.relay.proxy(options)(req, res, next)
       } else {
         next(new Error('relay not found in app.locals'))
       }
@@ -42,7 +33,11 @@ module.exports = class Relay {
   proxy (options) {
     return async (req, res, next) => {
       try {
-        this.send(res, await this.request(req, options))
+        let additional = options
+        if (typeof options === 'function') {
+          additional = options(req, res, next)
+        }
+        this.send(res, await this.request(req, additional))
       } catch (err) {
         next(err)
       }
