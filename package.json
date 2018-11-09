@@ -18,7 +18,7 @@
     "requests"
   ],
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
-  "license": "ISC",
+  "license": "Apache 2.0 with Commons Clause",
   "dependencies": {
     "deepmerge": "^2.1.1",
     "got": "^9.2.2"

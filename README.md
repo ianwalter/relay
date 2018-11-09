@@ -47,6 +47,13 @@ const addAuthHeader = req => ({
 app.put('/api/account', Relay.proxy(addAuthHeader))
 ```
 
+## License
+
+Apache 2.0 with Commons Clause - See [LICENSE](https://github.com/ianwalter/relay/blob/master/LICENSE)
+
+&nbsp;
+
+Created by [Ian Walter](https://iankwalter.com)
 
 [npm-image]: https://img.shields.io/npm/v/@ianwalter/relay.svg
 [npm-url]: https://www.npmjs.com/package/@ianwalter/relay
