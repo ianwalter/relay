@@ -1,8 +1,8 @@
 # relay
 > A flexible API to forward HTTP requests to another server
 
-[![Npm page][npm-image]][npm-url]
-[![Build status][build-image]][build-url]
+[![npm page][npmImage]][npmUrl]
+[![Build status][buildImage]][buildUrl]
 
 ## Installation
 
@@ -49,13 +49,14 @@ app.put('/api/account', Relay.proxy(addAuthHeader))
 
 ## License
 
-Apache 2.0 with Commons Clause - See [LICENSE](https://github.com/ianwalter/relay/blob/master/LICENSE)
+Apache 2.0 with Commons Clause - See [LICENSE][licenseUrl]
 
 &nbsp;
 
 Created by [Ian Walter](https://iankwalter.com)
 
-[npm-image]: https://img.shields.io/npm/v/@ianwalter/relay.svg
-[npm-url]: https://www.npmjs.com/package/@ianwalter/relay
-[build-image]: https://travis-ci.com/ianwalter/relay.svg?branch=master
-[build-url]: https://travis-ci.com/ianwalter/relay
+[npmImage]: https://img.shields.io/npm/v/@ianwalter/relay.svg
+[npmUrl]: https://www.npmjs.com/package/@ianwalter/relay
+[buildImage]: https://travis-ci.com/ianwalter/relay.svg?branch=master
+[buildUrl]: https://travis-ci.com/ianwalter/relay
+[licenseUrl]: https://github.com/ianwalter/line/blob/master/LICENSE
