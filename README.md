@@ -59,4 +59,4 @@ Created by [Ian Walter](https://iankwalter.com)
 [npmUrl]: https://www.npmjs.com/package/@ianwalter/relay
 [buildImage]: https://travis-ci.com/ianwalter/relay.svg?branch=master
 [buildUrl]: https://travis-ci.com/ianwalter/relay
-[licenseUrl]: https://github.com/ianwalter/line/blob/master/LICENSE
+[licenseUrl]: https://github.com/ianwalter/relay/blob/master/LICENSE
