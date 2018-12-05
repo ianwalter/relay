@@ -20,7 +20,7 @@
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
   "license": "Apache 2.0 with Commons Clause",
   "dependencies": {
-    "deepmerge": "^2.1.1",
+    "deepmerge": "^3.0.0",
     "got": "^9.2.2"
   },
   "devDependencies": {
