@@ -5,20 +5,19 @@ const got = require('got')
 
 const Relay = require('../')
 
-const baseUrl = 'http://localhost:7331'
+const baseUrl = 'http://localhost:7331/'
 
 test('request doesnt add falsy options', () => {
   const relay = new Relay({ baseUrl })
   const url = '/test'
-  const headers = { 'Content-Type': 'application/json' }
-  const authHeader = { 'Authorization': 'Bearer abc123' }
-  const options = {
-    baseUrl,
-    headers: { ...headers, ...authHeader },
-    throwHttpErrors: false
-  }
+  const headers = { 'content-type': 'application/json' }
+  const authHeader = { 'authorization': 'Bearer abc123' }
   relay.request({ url, headers }, { headers: authHeader })
-  expect(got).toHaveBeenCalledWith(url, options)
+  const [urlOption, options] = got.mock.calls[0]
+  expect(urlOption).toBe(url)
+  expect(options.baseUrl).toBe(baseUrl)
+  expect(options.throwHttpErrors).toBe(false)
+  expect(options.headers).toEqual({ ...headers, ...authHeader })
 })
 
 test('request relays a GET request', async done => {
