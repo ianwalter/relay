@@ -2,7 +2,6 @@
 > A flexible API to forward HTTP requests to another server
 
 [![npm page][npmImage]][npmUrl]
-[![Build status][buildImage]][buildUrl]
 
 ## Installation
 
@@ -57,6 +56,4 @@ Created by [Ian Walter](https://iankwalter.com)
 
 [npmImage]: https://img.shields.io/npm/v/@ianwalter/relay.svg
 [npmUrl]: https://www.npmjs.com/package/@ianwalter/relay
-[buildImage]: https://travis-ci.com/ianwalter/relay.svg?branch=master
-[buildUrl]: https://travis-ci.com/ianwalter/relay
 [licenseUrl]: https://github.com/ianwalter/relay/blob/master/LICENSE
