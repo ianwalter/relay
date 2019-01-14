@@ -21,7 +21,7 @@
   "license": "Apache 2.0 with Commons Clause",
   "dependencies": {
     "deepmerge": "^3.0.0",
-    "got": "^9.2.2"
+    "got": "^9.5.1"
   },
   "devDependencies": {
     "@appjumpstart/launch": "^2.0.3",
