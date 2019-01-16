@@ -4,12 +4,12 @@
   "description": "A flexible API to forward HTTP requests to another server",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint index.js tests",
     "mock:up": "launch mock.js",
     "mock:down": "launch --kill",
     "pretest": "npm run mock:up",
     "test": "jest",
-    "posttest": "npm run mock:down",
-    "lint": "eslint --ext js ."
+    "posttest": "npm run mock:down"
   },
   "keywords": [
     "forward",
@@ -18,7 +18,10 @@
     "requests"
   ],
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
-  "license": "Apache 2.0 with Commons Clause",
+  "license": "SEE LICENSE IN LICENSE",
+  "files": [
+    "index.js"
+  ],
   "dependencies": {
     "deepmerge": "^3.0.0",
     "got": "^9.2.2"
@@ -47,6 +50,7 @@
       "jest/globals": true
     },
     "extends": [
+      "eslint:recommended",
       "standard"
     ],
     "plugins": [

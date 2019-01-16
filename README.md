@@ -6,7 +6,7 @@
 ## Installation
 
 ```console
-npm install @ianwalter/relay --save
+yarn add @ianwalter/relay
 ```
 
 ## Usage
