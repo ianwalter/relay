@@ -13,14 +13,13 @@ test('send returns a 200 response successfully', async t => {
     try {
       relay.send(res, await relay.request(req))
     } catch (err) {
-      done.fail(err)
+      t.fail(err)
     } finally {
       res.end()
     }
   })
   const response = await request(app).get(path)
-  expect(response.body.foo).toEqual('Hello World!')
-  done()
+  t.is(response.body.foo, 'Hello World!')
 })
 
 test('send returns a 404 response successfully', async t => {
@@ -31,12 +30,11 @@ test('send returns a 404 response successfully', async t => {
     try {
       relay.send(res, await relay.request(req))
     } catch (err) {
-      done.fail(err)
+      t.fail(err)
     } finally {
       res.end()
     }
   })
   const response = await request(app).get(missingPath)
-  expect(response.status).toBe(404)
-  done()
+  t.is(response.status, 404)
 })

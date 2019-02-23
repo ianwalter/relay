@@ -11,9 +11,8 @@ test('proxy relays requests', async t => {
   const relay = new Relay({ baseUrl })
   app.get(path, relay.proxy())
   const res = await request(app).get(path)
-  expect(res.statusCode).toBe(201)
-  expect(res.body.foo).toEqual('Hello World!')
-  done()
+  t.is(res.statusCode, 201)
+  t.is(res.body.foo, 'Hello World!')
 })
 
 test('proxy (static) relays requests', async t => {
@@ -21,7 +20,6 @@ test('proxy (static) relays requests', async t => {
   app.locals.relay = new Relay({ baseUrl })
   app.get(path, Relay.proxy())
   const res = await request(app).get(path)
-  expect(res.statusCode).toBe(201)
-  expect(res.body.foo).toEqual('Hello World!')
-  done()
+  t.is(res.statusCode, 201)
+  t.is(res.body.foo, 'Hello World!')
 })

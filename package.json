@@ -40,9 +40,6 @@
     "np": "^3.0.4",
     "supertest": "^3.1.0"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
   "eslintConfig": {
     "root": true,
     "extends": [
