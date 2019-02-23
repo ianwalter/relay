@@ -37,7 +37,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "express": "^4.16.3",
-    "jest": "^23.6.0",
+    "jest": "^24.1.0",
     "np": "^3.0.4",
     "supertest": "^3.1.0"
   },
