@@ -1,11 +1,12 @@
-const express = require('express')
-const request = require('supertest')
-const Relay = require('../')
+import test from 'ava'
+import express from 'express'
+import request from 'supertest'
+import Relay from '../'
 
 const baseUrl = 'http://localhost:7331'
 const path = '/could-it-be'
 
-test('send returns a 200 response successfully', async done => {
+test('send returns a 200 response successfully', async t => {
   const app = express()
   const relay = new Relay({ baseUrl })
   app.get(path, async (req, res) => {
@@ -22,7 +23,7 @@ test('send returns a 200 response successfully', async done => {
   done()
 })
 
-test('send returns a 404 response successfully', async done => {
+test('send returns a 404 response successfully', async t => {
   const app = express()
   const relay = new Relay({ baseUrl })
   const missingPath = '/missing-path'

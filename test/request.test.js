@@ -1,13 +1,13 @@
-const express = require('express')
-const request = require('supertest')
-const bodyParser = require('body-parser')
-const got = require('got')
-
-const Relay = require('../')
+import test from 'ava'
+import express from 'express'
+import request from 'supertest'
+import bodyParser from 'body-parser'
+import got from 'got'
+import Relay from '../'
 
 const baseUrl = 'http://localhost:7331/'
 
-test('request doesnt add falsy options', () => {
+test('request doesnt add falsy options', t => {
   const relay = new Relay({ baseUrl })
   const url = '/test'
   const headers = { 'content-type': 'application/json' }
@@ -20,7 +20,7 @@ test('request doesnt add falsy options', () => {
   expect(options.headers).toEqual({ ...headers, ...authHeader })
 })
 
-test('request relays a GET request', async done => {
+test('request relays a GET request', async t => {
   const path = '/could-it-be'
   const app = express()
   const relay = new Relay({ baseUrl })
@@ -39,7 +39,7 @@ test('request relays a GET request', async done => {
   done()
 })
 
-test('request relays a POST request', async done => {
+test('request relays a POST request', async t => {
   const path = '/mirror'
   const app = express()
   app.use(bodyParser.json())

@@ -1,10 +1,10 @@
 const got = require('got')
-const merge = require('deepmerge')
+const merge = require('@ianwalter/merge')
 
 module.exports = class Relay {
   constructor (options = {}) {
     const defaults = { throwHttpErrors: false }
-    this.options = merge(defaults, options)
+    this.options = merge({}, defaults, options)
   }
 
   async request (initial, additional = {}) {
@@ -13,7 +13,7 @@ module.exports = class Relay {
       ...(initial.method ? { method: initial.method } : {}),
       ...(initial.headers ? { headers: initial.headers } : {})
     }
-    const options = merge.all([initialOptions, this.options, additional])
+    const options = merge(initialOptions, this.options, additional)
     if (typeof options.body === 'object') {
       options.body = JSON.stringify(options.body)
     }

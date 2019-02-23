@@ -1,11 +1,12 @@
-const express = require('express')
-const request = require('supertest')
-const Relay = require('../')
+import test from 'ava'
+import express from 'express'
+import request from 'supertest'
+import Relay from '../'
 
 const baseUrl = 'http://localhost:7331'
 const path = '/could-it-be'
 
-test('proxy relays requests', async done => {
+test('proxy relays requests', async t => {
   const app = express()
   const relay = new Relay({ baseUrl })
   app.get(path, relay.proxy())
@@ -15,7 +16,7 @@ test('proxy relays requests', async done => {
   done()
 })
 
-test('proxy (static) relays requests', async done => {
+test('proxy (static) relays requests', async t => {
   const app = express()
   app.locals.relay = new Relay({ baseUrl })
   app.get(path, Relay.proxy())
