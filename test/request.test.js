@@ -1,26 +1,31 @@
-const express = require('express')
-const request = require('supertest')
-const bodyParser = require('body-parser')
-const got = require('got')
-
-const Relay = require('../')
+import test from 'ava'
+import express from 'express'
+import request from 'supertest'
+import bodyParser from 'body-parser'
+import Relay from '..'
+import proxyquire from 'proxyquire'
 
 const baseUrl = 'http://localhost:7331/'
 
-test('request doesnt add falsy options', () => {
+test('request doesnt add falsy options', t => {
+  const call = {}
+  const got = (url, options) => {
+    call.url = url
+    call.options = options
+  }
+  const Relay = proxyquire('../', { got })
   const relay = new Relay({ baseUrl })
   const url = '/test'
   const headers = { 'content-type': 'application/json' }
   const authHeader = { 'authorization': 'Bearer abc123' }
   relay.request({ url, headers }, { headers: authHeader })
-  const [urlOption, options] = got.mock.calls[0]
-  expect(urlOption).toBe(url)
-  expect(options.baseUrl).toBe(baseUrl)
-  expect(options.throwHttpErrors).toBe(false)
-  expect(options.headers).toEqual({ ...headers, ...authHeader })
+  t.is(call.url, url)
+  t.is(call.options.baseUrl, baseUrl)
+  t.is(call.options.throwHttpErrors, false)
+  t.deepEqual(call.options.headers, { ...headers, ...authHeader })
 })
 
-test('request relays a GET request', async done => {
+test('request relays a GET request', async t => {
   const path = '/could-it-be'
   const app = express()
   const relay = new Relay({ baseUrl })
@@ -28,18 +33,17 @@ test('request relays a GET request', async done => {
     try {
       const response = await relay.request(req)
       const body = JSON.parse(response.body)
-      expect(body.foo).toEqual('Hello World!')
+      t.is(body.foo, 'Hello World!')
     } catch (err) {
-      done.fail(err)
+      t.fail(err)
     } finally {
       res.end()
     }
   })
   await request(app).get(path)
-  done()
 })
 
-test('request relays a POST request', async done => {
+test('request relays a POST request', async t => {
   const path = '/mirror'
   const app = express()
   app.use(bodyParser.json())
@@ -49,13 +53,12 @@ test('request relays a POST request', async done => {
     try {
       const response = await relay.request(req)
       const body = JSON.parse(response.body)
-      expect(body).toEqual(payload)
+      t.deepEqual(body, payload)
     } catch (err) {
-      done.fail(err)
+      t.fail(err)
     } finally {
       res.end()
     }
   })
   await request(app).post(path).send(payload)
-  done()
 })
