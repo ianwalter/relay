@@ -46,7 +46,10 @@
     "extends": [
       "eslint:recommended",
       "standard"
-    ]
+    ],
+    "rules": {
+      "no-console": 0
+    }
   },
   "repository": {
     "type": "git",
