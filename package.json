@@ -4,8 +4,8 @@
   "description": "A flexible API to forward HTTP requests to another server",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js tests",
-    "mock:up": "launch mock.js",
+    "lint": "eslint index.js test",
+    "mock:up": "launch test/helpers/mock.js",
     "mock:down": "launch --kill",
     "pretest": "npm run mock:up",
     "test": "ava",
@@ -38,6 +38,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "express": "^4.16.3",
     "np": "^3.0.4",
+    "proxyquire": "^2.1.0",
     "supertest": "^3.1.0"
   },
   "eslintConfig": {
