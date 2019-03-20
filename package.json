@@ -27,7 +27,7 @@
     "got": "^9.2.2"
   },
   "devDependencies": {
-    "@appjumpstart/launch": "^2.0.3",
+    "@appjumpstart/launch": "^3.0.0",
     "@ianwalter/eslint-config": "^1.0.0",
     "ava": "^1.2.1",
     "body-parser": "^1.18.3",
