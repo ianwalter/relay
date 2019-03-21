@@ -16,6 +16,7 @@ module.exports = class Relay {
     const options = merge(initialOptions, this.options, additional)
     if (typeof options.body === 'object') {
       options.body = JSON.stringify(options.body)
+      options.headers['content-length'] = `${Buffer.byteLength(options.body)}`
     }
     return got(initial.url, options)
   }
