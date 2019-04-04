@@ -23,7 +23,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@ianwalter/merge": "^2.0.1",
+    "@ianwalter/merge": "^3.0.0",
     "got": "^9.2.2"
   },
   "devDependencies": {
