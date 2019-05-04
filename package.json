@@ -31,7 +31,7 @@
     "@ianwalter/eslint-config": "^1.1.2",
     "@ianwalter/renovate-config": "^1.1.0",
     "ava": "^1.4.1",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "express": "^4.16.4",
     "np": "^5.0.0",
     "proxyquire": "^2.1.0",
