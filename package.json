@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "@ianwalter/merge": "^4.0.0",
-    "got": "^9.2.2"
+    "got": "^9.6.0"
   },
   "devDependencies": {
     "@appjumpstart/launch": "^3.0.0",
