@@ -1,28 +1,28 @@
-import test from 'ava'
-import express from 'express'
-import request from 'supertest'
-import Relay from '../'
+const { test } = require('@ianwalter/bff')
+const express = require('express')
+const request = require('supertest')
+const Relay = require('../')
 
 const baseUrl = 'http://localhost:7331'
 const path = '/could-it-be'
 
-test('send returns a 200 response successfully', async t => {
+test('send returns a 200 response successfully', async ({ expect, fail }) => {
   const app = express()
   const relay = new Relay({ baseUrl })
   app.get(path, async (req, res) => {
     try {
       relay.send(res, await relay.request(req))
     } catch (err) {
-      t.fail(err)
+      fail(err)
     } finally {
       res.end()
     }
   })
   const response = await request(app).get(path)
-  t.is(response.body.foo, 'Hello World!')
+  expect(response.body.foo).toBe('Hello World!')
 })
 
-test('send returns a 404 response successfully', async t => {
+test('send returns a 404 response successfully', async ({ expect, fail }) => {
   const app = express()
   const relay = new Relay({ baseUrl })
   const missingPath = '/missing-path'
@@ -30,11 +30,11 @@ test('send returns a 404 response successfully', async t => {
     try {
       relay.send(res, await relay.request(req))
     } catch (err) {
-      t.fail(err)
+      fail(err)
     } finally {
       res.end()
     }
   })
   const response = await request(app).get(missingPath)
-  t.is(response.status, 404)
+  expect(response.status).toBe(404)
 })

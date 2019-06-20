@@ -4,11 +4,11 @@
   "description": "A flexible API to forward HTTP requests to another server",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js test",
-    "mock:up": "launch test/helpers/mock.js",
+    "lint": "eslint index.js tests",
+    "mock:up": "launch tests/helpers/mock.js",
     "mock:down": "launch --kill",
     "pretest": "npm run mock:up",
-    "test": "ava",
+    "test": "bff",
     "posttest": "npm run mock:down"
   },
   "keywords": [
@@ -28,9 +28,9 @@
   },
   "devDependencies": {
     "@appjumpstart/launch": "^3.0.0",
+    "@ianwalter/bff": "^6.1.0",
     "@ianwalter/eslint-config": "^2.0.1",
     "@ianwalter/renovate-config": "^1.1.0",
-    "ava": "^1.4.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "np": "^5.0.3",
