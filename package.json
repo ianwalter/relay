@@ -23,7 +23,7 @@
     "got": "^9.6.0"
   },
   "devDependencies": {
-    "@ianwalter/bff": "^6.1.0",
+    "@ianwalter/bff": "^6.2.0",
     "@ianwalter/eslint-config": "^2.0.1",
     "@ianwalter/renovate-config": "^1.1.0",
     "@ianwalter/test-server": "^1.4.3",
