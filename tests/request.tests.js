@@ -1,7 +1,6 @@
 const { test } = require('@ianwalter/bff')
 const express = require('express')
 const request = require('supertest')
-const bodyParser = require('body-parser')
 const proxyquire = require('proxyquire')
 const Relay = require('../')
 const createMockServer = require('./helpers/createMockServer.js')
@@ -50,7 +49,7 @@ test('request relays a POST request', async ({ expect, fail }) => {
   const server = await createMockServer()
   const path = '/mirror'
   const app = express()
-  app.use(bodyParser.json())
+  app.use(express.json())
   const relay = new Relay({ baseUrl: server.url })
   const payload = { artist: 'Little Dragon' }
   app.post(path, async (req, res) => {
