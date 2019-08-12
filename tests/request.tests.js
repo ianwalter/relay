@@ -16,7 +16,7 @@ test(`request doesn't add falsy options`, async ({ expect }) => {
   const relay = new Relay({ baseUrl: server.url })
   const url = '/test'
   const headers = { 'content-type': 'application/json' }
-  const authHeader = { 'authorization': 'Bearer abc123' }
+  const authHeader = { authorization: 'Bearer abc123' }
   relay.request({ url, headers }, { headers: authHeader })
   expect(call.url).toBe(url)
   expect(call.options.baseUrl).toBe(server.url)
