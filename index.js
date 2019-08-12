@@ -1,4 +1,4 @@
-const got = require('got')
+const { requester } = require('@ianwalter/requester')
 const merge = require('@ianwalter/merge')
 
 module.exports = class Relay {
@@ -14,11 +14,7 @@ module.exports = class Relay {
       ...(initial.headers ? { headers: initial.headers } : {})
     }
     const options = merge(initialOptions, this.options, additional)
-    if (typeof options.body === 'object') {
-      options.body = JSON.stringify(options.body)
-      options.headers['content-length'] = `${Buffer.byteLength(options.body)}`
-    }
-    return got(initial.url, options)
+    return requester.request(initial.url, options)
   }
 
   static proxy (options) {
@@ -45,7 +41,7 @@ module.exports = class Relay {
     }
   }
 
-  send (res, { headers, statusCode, body }) {
-    res.set(headers).status(statusCode).end(body)
+  send (res, { headers, statusCode, rawBody }) {
+    res.set(headers).status(statusCode).end(rawBody)
   }
 }

@@ -216,6 +216,11 @@
   resolved "https://registry.yarnpkg.com/@ianwalter/renovate-config/-/renovate-config-1.1.1.tgz#285c0fe4351d90fe05508930fbedbdc4b9fb8603"
   integrity sha512-72PUwgDGtL1IfzeqxmS9qo2PgO78KheLyRpf30wlp/FQIHULNvJN+U8t9berWxDk2rSW12fNf9CVvPQ/Wpc9tQ==
 
+"@ianwalter/requester@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@ianwalter/requester/-/requester-1.0.2.tgz#77d700537e3896183eec8269fc8243b8302657f7"
+  integrity sha512-UGm3i8YsuIIDbnXmyv+0B4285NmlaRHuFZLyJ8zflXeGlO6iQ8h/imIXO1QtCK90de5jQzof4C0Dgrf1xlCxVw==
+
 "@ianwalter/test-server@^1.4.3":
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/@ianwalter/test-server/-/test-server-1.4.3.tgz#993d766c322d7022323833912fdb65c96106ab7f"
