@@ -5,7 +5,7 @@ const proxyquire = require('proxyquire')
 const Relay = require('../')
 const createMockServer = require('./helpers/createMockServer.js')
 
-test(`request doesn't add falsy options`, async ({ expect }) => {
+test("request doesn't add falsy options", async ({ expect }) => {
   const server = await createMockServer()
   const call = {}
   const got = (url, options) => {
