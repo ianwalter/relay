@@ -1,6 +1,11 @@
 const { requester } = require('@ianwalter/requester')
 const merge = require('@ianwalter/merge')
 
+const handleOptions = (options = {}, req, res, next) => merge(
+  { relay: 'relay' },
+  typeof options === 'function' ? options(req, res, next) : options
+)
+
 module.exports = class Relay {
   constructor (options = {}) {
     this.options = options
@@ -8,33 +13,37 @@ module.exports = class Relay {
 
   static request (options) {
     return async (req, res, next) => {
-      if (req.app.locals.relay) {
-        let additional = options
-        if (typeof options === 'function') {
-          additional = options(req, res, next)
+      options = handleOptions(options, req, res, next)
+      if (req.app.locals[options.relay]) {
+        try {
+          req.relay = await req.app.locals[options.relay].request(req, options)
+        } catch (err) {
+          next(err)
         }
-        req.relay = await req.app.locals.relay.request(req, additional)
-        next()
       } else {
-        next(new Error('relay not found in app.locals'))
+        next(new Error(`${options.relay} not found in app.locals`))
       }
     }
   }
 
-  static async respond (req, res, next) {
-    if (req.app.locals.relay) {
-      await req.app.locals.relay.respond(res, req.relay)
-    } else {
-      next(new Error('relay not found in app.locals'))
+  static async respond (options) {
+    return async (req, res, next) => {
+      options = handleOptions(options, req, res, next)
+      if (req.app.locals[options.relay]) {
+        req.app.locals[options.relay].respond(res, req.relay)
+      } else {
+        next(new Error(`${options.relay} not found in app.locals`))
+      }
     }
   }
 
   static proxy (options) {
     return async (req, res, next) => {
-      if (req.app.locals.relay) {
-        req.app.locals.relay.proxy(options)(req, res, next)
+      options = handleOptions(options, req, res, next)
+      if (req.app.locals[options.relay]) {
+        req.app.locals[options.relay].proxy(options)(req, res, next)
       } else {
-        next(new Error('relay not found in app.locals'))
+        next(new Error(`${options.relay} not found in app.locals`))
       }
     }
   }
@@ -56,11 +65,7 @@ module.exports = class Relay {
   proxy (options) {
     return async (req, res, next) => {
       try {
-        let additional = options
-        if (typeof options === 'function') {
-          additional = options(req, res, next)
-        }
-        this.respond(res, await this.request(req, additional))
+        this.respond(res, await this.request(req, options))
       } catch (err) {
         next(err)
       }
