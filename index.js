@@ -19,6 +19,7 @@ module.exports = class Relay {
       if (req.app.locals[options.relay]) {
         try {
           req.relay = await req.app.locals[options.relay].request(req, options)
+          next()
         } catch (err) {
           next(err)
         }
