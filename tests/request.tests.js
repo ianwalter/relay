@@ -43,3 +43,18 @@ test('request relays a POST request', async ({ expect, fail }) => {
   await request(app).post(path).send(payload)
   await server.close()
 })
+
+test('request (static) relays a PUT request', async ({ expect }) => {
+  const server = await createMockServer()
+  const path = '/mirror'
+  const app = express()
+  app.use(express.json())
+  app.locals.relay = new Relay({ baseUrl: server.url })
+  const payload = { message: "Just don't breath and we'll stop time" }
+  app.put(path, Relay.request(), async (req, res) => {
+    expect(req.relay.body).toEqual(payload)
+    res.end()
+  })
+  await request(app).put(path).send(payload)
+  await server.close()
+})

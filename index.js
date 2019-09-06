@@ -30,7 +30,7 @@ module.exports = class Relay {
   }
 
   static respond (options) {
-    return async (req, res, next) => {
+    return (req, res, next) => {
       options = handleOptions(options, req, res, next)
       if (req.app.locals[options.relay]) {
         req.app.locals[options.relay].respond(res, req.relay)
@@ -44,7 +44,7 @@ module.exports = class Relay {
     return async (req, res, next) => {
       options = handleOptions(options, req, res, next)
       if (req.app.locals[options.relay]) {
-        req.app.locals[options.relay].proxy(options)(req, res, next)
+        await req.app.locals[options.relay].proxy(options)(req, res, next)
       } else {
         next(new Error(`${options.relay} not found in app.locals`))
       }

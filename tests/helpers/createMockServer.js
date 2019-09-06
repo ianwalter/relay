@@ -9,6 +9,8 @@ module.exports = async function createMockServer () {
       ctx.body = { foo: 'Hello World!' }
     } else if (ctx.request.url === '/mirror') {
       ctx.body = ctx.request.body
+    } else if (ctx.request.url === '/error') {
+      ctx.status = 500
     }
   })
 
