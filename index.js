@@ -1,5 +1,7 @@
-const { requester } = require('@ianwalter/requester')
+const { Requester } = require('@ianwalter/requester')
 const merge = require('@ianwalter/merge')
+
+const requester = new Requester({ shouldThrow: false })
 
 const handleOptions = (options = {}, req, res, next) => merge(
   { relay: 'relay' },

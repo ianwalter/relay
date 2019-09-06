@@ -27,6 +27,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@ianwalter/base-error@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@ianwalter/base-error/-/base-error-6.0.0.tgz#d53b93115739e4fec4406b06173be35321d207f8"
+  integrity sha512-I7iqckGb4RCE4pZKTo4o3J17ajhp1+XJfYMTQhY4L+tyWYNdj5sqacrnyzgfrYpkzuUrdWGIgpcsF72WA2yPkg==
+
 "@ianwalter/bff@^6.5.0":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@ianwalter/bff/-/bff-6.5.0.tgz#12445901a0926fdd2bc50a760e52873d49bd7647"
@@ -140,10 +145,12 @@
   resolved "https://registry.yarnpkg.com/@ianwalter/renovate-config/-/renovate-config-1.2.0.tgz#f84e2fc56ad5d29c0876058c16c25db95baf74a9"
   integrity sha512-OSvziSdR0gxnWeH+9KbS9+HjojFa73vqNFU7wAxWs2ZV/9YofpKw0HwGtzyYgb1xVk8g6ZFPMYaTnFZ4Af6N/w==
 
-"@ianwalter/requester@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@ianwalter/requester/-/requester-1.1.0.tgz#8b6b86cbc88fa32a5f37a62d915004cbef1b3826"
-  integrity sha512-SSJ0yKIMPuQ7LXBY8rsEXb2jC3xyTmrvjpM+8L2Mqv0GTiPVlebt6oD0CNRqTeEsr+7kvyVWgdxyAmkeuBRqJA==
+"@ianwalter/requester@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@ianwalter/requester/-/requester-1.2.0.tgz#727787667f8106fb0ae9e744bc3883693ec46bbb"
+  integrity sha512-nru5aOICjrjGGUgAAvMWOVTduA/dViXfyyAjyS1KkgHo+gp2d6mXIrk0fuSq7ZXLqmxJxwAuv9ndmR4OModG9g==
+  dependencies:
+    "@ianwalter/base-error" "^6.0.0"
 
 "@ianwalter/test-server@^1.4.3":
   version "1.4.3"
