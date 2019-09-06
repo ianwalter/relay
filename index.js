@@ -28,7 +28,7 @@ module.exports = class Relay {
     }
   }
 
-  static async respond (options) {
+  static respond (options) {
     return async (req, res, next) => {
       options = handleOptions(options, req, res, next)
       if (req.app.locals[options.relay]) {
