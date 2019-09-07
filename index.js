@@ -17,38 +17,38 @@ module.exports = class Relay {
 
   static request (options) {
     return async (req, res, next) => {
-      options = handleOptions(options, req, res, next)
-      if (req.app.locals[options.relay]) {
+      const { relay, ...rest } = handleOptions(options, req, res, next)
+      if (req.app.locals[relay]) {
         try {
-          req.relay = await req.app.locals[options.relay].request(req, options)
+          req.relay = await req.app.locals[relay].request(req, rest)
           next()
         } catch (err) {
           next(err)
         }
       } else {
-        next(new Error(`${options.relay} not found in app.locals`))
+        next(new Error(`${relay} not found in app.locals`))
       }
     }
   }
 
   static respond (options) {
     return (req, res, next) => {
-      options = handleOptions(options, req, res, next)
-      if (req.app.locals[options.relay]) {
-        req.app.locals[options.relay].respond(res, req.relay)
+      const { relay } = handleOptions(options, req, res, next)
+      if (req.app.locals[relay]) {
+        req.app.locals[relay].respond(res, req.relay)
       } else {
-        next(new Error(`${options.relay} not found in app.locals`))
+        next(new Error(`${relay} not found in app.locals`))
       }
     }
   }
 
   static proxy (options) {
     return async (req, res, next) => {
-      options = handleOptions(options, req, res, next)
-      if (req.app.locals[options.relay]) {
-        await req.app.locals[options.relay].proxy(options)(req, res, next)
+      const { relay, ...rest } = handleOptions(options, req, res, next)
+      if (req.app.locals[relay]) {
+        await req.app.locals[relay].proxy(rest)(req, res, next)
       } else {
-        next(new Error(`${options.relay} not found in app.locals`))
+        next(new Error(`${relay} not found in app.locals`))
       }
     }
   }
