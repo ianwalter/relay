@@ -12,7 +12,7 @@ const handleOptions = (options = {}, req, res, next) => merge(
 module.exports = class Relay {
   constructor (options = {}) {
     this.options = options
-    this.print = new Print({ level: options.logLevel })
+    this.print = new Print({ level: options.logLevel || 'info' })
   }
 
   static request (options) {
