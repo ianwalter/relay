@@ -21,8 +21,10 @@ module.exports = class Relay {
       if (req.app.locals[relay]) {
         try {
           req.relay = await req.app.locals[relay].request(req, rest)
+          req.app.locals[relay].print.debug('Static request result', req.relay)
           next()
         } catch (err) {
+          req.app.locals[relay].print.debug('Static request error', err)
           next(err)
         }
       } else {
