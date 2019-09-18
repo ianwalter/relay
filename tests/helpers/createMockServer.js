@@ -1,7 +1,7 @@
-const createTestServer = require('@ianwalter/test-server')
+const { createKoaServer } = require('@ianwalter/test-server')
 
 module.exports = async function createMockServer () {
-  const server = await createTestServer()
+  const server = await createKoaServer()
 
   server.use(ctx => {
     if (ctx.request.url === '/could-it-be') {
