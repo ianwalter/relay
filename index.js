@@ -2,8 +2,6 @@ const { Requester } = require('@ianwalter/requester')
 const merge = require('@ianwalter/merge')
 const { Print } = require('@ianwalter/print')
 
-const requester = new Requester({ shouldThrow: false })
-
 const handleOptions = (options = {}, req, res, next) => merge(
   { relay: 'relay' },
   typeof options === 'function' ? options(req, res, next) : options
@@ -11,8 +9,12 @@ const handleOptions = (options = {}, req, res, next) => merge(
 
 module.exports = class Relay {
   constructor (options = {}) {
-    this.options = options
-    this.print = new Print({ level: options.logLevel || 'info' })
+    this.options = Object.assign({ logLevel: 'info' }, options)
+    this.print = new Print({ level: this.options.logLevel })
+    this.requester = new Requester({
+      shouldThrow: false,
+      logLevel: this.options.logLevel
+    })
   }
 
   static request (options) {
@@ -63,7 +65,7 @@ module.exports = class Relay {
     }
     const options = merge(initialOptions, this.options, additional)
     this.print.debug(`Request to ${initial.url}`, options)
-    return requester.request(initial.url, options)
+    return this.requester.request(initial.url, options)
   }
 
   respond (res, { req, headers, statusCode, body, rawBody }) {
