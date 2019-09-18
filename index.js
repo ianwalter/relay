@@ -66,7 +66,7 @@ module.exports = class Relay {
 
   respond (res, { req, headers, statusCode, body, rawBody }) {
     this.print.debug(`${statusCode} response to ${req.path}`, headers, body)
-    res.set(headers).status(statusCode).end(rawBody)
+    res.set(headers).status(statusCode).send(rawBody)
   }
 
   proxy (options) {
