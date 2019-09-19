@@ -28,7 +28,7 @@
     "@ianwalter/eslint-config": "^2.4.0",
     "@ianwalter/release": "^3.0.3",
     "@ianwalter/renovate-config": "^1.2.0",
-    "@ianwalter/test-server": "^2.0.1"
+    "@ianwalter/test-server": "^2.0.2"
   },
   "eslintConfig": {
     "root": true,
