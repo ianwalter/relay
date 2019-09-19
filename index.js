@@ -21,6 +21,7 @@ module.exports = class Relay {
           const response = await req.app.locals[relay].request(req, rest)
 
           if (
+            response.body &&
             response.headers &&
             response.headers['content-type'] &&
             response.headers['content-type'].includes('application/json')
@@ -75,6 +76,8 @@ module.exports = class Relay {
       options.headers['content-length'] = `${Buffer.byteLength(options.body)}`
     }
     this.print.debug(`Request to ${initial.url}`, options)
+    delete options.headers.connection
+    // console.log(options)
     return got(initial.url, options)
   }
 
