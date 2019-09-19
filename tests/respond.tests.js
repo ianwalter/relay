@@ -33,7 +33,8 @@ test('respond returns a 404 response successfully', async ctx => {
   const path = '/missing-path'
   midServer.get(path, async (req, res) => {
     try {
-      relay.respond(res, await relay.request(req))
+      const response = await relay.request(req, { throwHttpErrors: false })
+      relay.respond(res, response)
     } catch (err) {
       ctx.fail(err)
     } finally {
@@ -46,6 +47,7 @@ test('respond returns a 404 response successfully', async ctx => {
   await midServer.close()
 })
 
+// FIXME: why is this test so slow?
 test('respond (static) returns a 500 response successfully', async ctx => {
   const endServer = await createMockServer()
   const midServer = await createExpressServer()
