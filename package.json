@@ -21,7 +21,7 @@
   "dependencies": {
     "@ianwalter/merge": "^5.0.0",
     "@ianwalter/print": "^3.2.1",
-    "@ianwalter/requester": "^1.7.0"
+    "@ianwalter/requester": "^1.8.0"
   },
   "devDependencies": {
     "@ianwalter/bff": "^6.5.0",
