@@ -26,10 +26,10 @@ test('respond returns a 200 response successfully', async ctx => {
   await midServer.close()
 })
 
-test('respond returns a 404 response successfully', async ctx => {
+test.only('respond returns a 404 response successfully', async ctx => {
   const endServer = await createMockServer()
   const midServer = await createExpressServer()
-  const relay = new Relay({ baseUrl: endServer.url })
+  const relay = new Relay({ baseUrl: endServer.url, logLevel: 'debug' })
   const path = '/missing-path'
   midServer.get(path, async (req, res) => {
     try {

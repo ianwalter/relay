@@ -1,4 +1,4 @@
-const { Requester } = require('@ianwalter/requester')
+const got = require('got')
 const merge = require('@ianwalter/merge')
 const { Print } = require('@ianwalter/print')
 
@@ -11,10 +11,6 @@ module.exports = class Relay {
   constructor (options = {}) {
     this.options = Object.assign({ logLevel: 'info' }, options)
     this.print = new Print({ level: this.options.logLevel })
-    this.requester = new Requester({
-      shouldThrow: false,
-      logLevel: this.options.logLevel
-    })
   }
 
   static request (options) {
@@ -22,7 +18,17 @@ module.exports = class Relay {
       const { relay, ...rest } = handleOptions(options, req, res, next)
       if (req.app.locals[relay]) {
         try {
-          req.relay = await req.app.locals[relay].request(req, rest)
+          const response = await req.app.locals[relay].request(req, rest)
+
+          if (
+            response.headers &&
+            response.headers['content-type'] &&
+            response.headers['content-type'].includes('application/json')
+          ) {
+            response.body = JSON.parse(response.body)
+          }
+
+          req.relay = response
           req.app.locals[relay].print.debug('Static request result', req.relay)
           next()
         } catch (err) {
@@ -64,13 +70,17 @@ module.exports = class Relay {
       ...(initial.headers ? { headers: initial.headers } : {})
     }
     const options = merge(initialOptions, this.options, additional)
+    if (typeof options.body === 'object') {
+      options.body = JSON.stringify(options.body)
+      options.headers['content-length'] = `${Buffer.byteLength(options.body)}`
+    }
     this.print.debug(`Request to ${initial.url}`, options)
-    return this.requester.request(initial.url, options)
+    return got(initial.url, options)
   }
 
-  respond (res, { req, headers, statusCode, body, rawBody }) {
+  respond (res, { req, headers, statusCode, body }) {
     this.print.debug(`${statusCode} response to ${req.path}`, headers, body)
-    res.set(headers).status(statusCode).send(rawBody)
+    res.set(headers).status(statusCode).send(body)
   }
 
   proxy (options) {
