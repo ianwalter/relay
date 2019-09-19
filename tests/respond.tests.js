@@ -1,16 +1,17 @@
 const { test } = require('@ianwalter/bff')
-const express = require('express')
-const request = require('supertest')
+const { createExpressServer } = require('@ianwalter/test-server')
+const { Requester } = require('@ianwalter/requester')
 const Relay = require('../')
 const createMockServer = require('./helpers/createMockServer.js')
 
 const path = '/could-it-be'
+const requester = new Requester({ shouldThrow: false })
 
 test('respond returns a 200 response successfully', async ctx => {
-  const server = await createMockServer()
-  const app = express()
-  const relay = new Relay({ baseUrl: server.url })
-  app.get(path, async (req, res) => {
+  const endServer = await createMockServer()
+  const midServer = await createExpressServer()
+  const relay = new Relay({ baseUrl: endServer.url })
+  midServer.get(path, async (req, res) => {
     try {
       relay.respond(res, await relay.request(req))
     } catch (err) {
@@ -19,17 +20,18 @@ test('respond returns a 200 response successfully', async ctx => {
       res.end()
     }
   })
-  const response = await request(app).get(path)
+  const response = await requester.get(`${midServer.url}${path}`)
   ctx.expect(response.body.foo).toBe('Hello World!')
-  await server.close()
+  await endServer.close()
+  await midServer.close()
 })
 
 test('respond returns a 404 response successfully', async ctx => {
-  const server = await createMockServer()
-  const app = express()
-  const relay = new Relay({ baseUrl: server.url })
+  const endServer = await createMockServer()
+  const midServer = await createExpressServer()
+  const relay = new Relay({ baseUrl: endServer.url })
   const path = '/missing-path'
-  app.get(path, async (req, res) => {
+  midServer.get(path, async (req, res) => {
     try {
       relay.respond(res, await relay.request(req))
     } catch (err) {
@@ -38,18 +40,20 @@ test('respond returns a 404 response successfully', async ctx => {
       res.end()
     }
   })
-  const response = await request(app).get(path)
-  ctx.expect(response.status).toBe(404)
-  await server.close()
+  const response = await requester.get(`${midServer.url}${path}`)
+  ctx.expect(response.statusCode).toBe(404)
+  await endServer.close()
+  await midServer.close()
 })
 
 test('respond (static) returns a 500 response successfully', async ctx => {
-  const server = await createMockServer()
-  const app = express()
-  app.locals.relay = new Relay({ baseUrl: server.url })
+  const endServer = await createMockServer()
+  const midServer = await createExpressServer()
+  midServer.locals.relay = new Relay({ baseUrl: endServer.url })
   const path = '/error'
-  app.delete(path, Relay.request(), Relay.respond())
-  const response = await request(app).delete(path)
-  ctx.expect(response.status).toBe(500)
-  await server.close()
+  midServer.delete(path, Relay.request(), Relay.respond())
+  const response = await requester.delete(`${midServer.url}${path}`)
+  ctx.expect(response.statusCode).toBe(500)
+  await endServer.close()
+  await midServer.close()
 })
