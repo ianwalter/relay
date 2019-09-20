@@ -10,7 +10,8 @@ const handleOptions = (options = {}, req, res, next) => merge(
 
 module.exports = class Relay {
   constructor (options = {}) {
-    this.options = Object.assign({ logLevel: 'info' }, options)
+    const defaults = { throwHttpErrors: false }
+    this.options = merge({ logLevel: 'info' }, defaults, options)
     this.print = new Print({ level: this.options.logLevel })
   }
 
@@ -18,16 +19,11 @@ module.exports = class Relay {
     return async (req, res, next) => {
       const { relay, ...rest } = handleOptions(options, req, res, next)
       if (req.app.locals[relay]) {
-        try {
-          const response = await req.app.locals[relay].request(req, rest)
-          Requester.shapeResponse(response)
-          req.relay = response
-          req.app.locals[relay].print.debug('Static request result', req.relay)
-          next()
-        } catch (err) {
-          req.app.locals[relay].print.debug('Static request error', err)
-          next(err)
-        }
+        const response = await req.app.locals[relay].request(req, rest)
+        Requester.shapeResponse(response)
+        req.relay = response
+        req.app.locals[relay].print.debug('Static request result', req.relay)
+        next()
       } else {
         next(new Error(`${relay} not found in app.locals`))
       }
@@ -76,12 +72,8 @@ module.exports = class Relay {
   }
 
   proxy (options) {
-    return async (req, res, next) => {
-      try {
-        this.respond(res, await this.request(req, options))
-      } catch (err) {
-        next(err)
-      }
+    return async (req, res) => {
+      this.respond(res, await this.request(req, options))
     }
   }
 }
