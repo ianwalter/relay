@@ -1,4 +1,5 @@
 const got = require('got')
+const { Requester } = require('@ianwalter/requester')
 const merge = require('@ianwalter/merge')
 const { Print } = require('@ianwalter/print')
 
@@ -19,16 +20,7 @@ module.exports = class Relay {
       if (req.app.locals[relay]) {
         try {
           const response = await req.app.locals[relay].request(req, rest)
-
-          if (
-            response.body &&
-            response.headers &&
-            response.headers['content-type'] &&
-            response.headers['content-type'].includes('application/json')
-          ) {
-            response.body = JSON.parse(response.body)
-          }
-
+          Requester.shapeResponse(response)
           req.relay = response
           req.app.locals[relay].print.debug('Static request result', req.relay)
           next()
@@ -71,10 +63,7 @@ module.exports = class Relay {
       ...(initial.headers ? { headers: initial.headers } : {})
     }
     const options = merge(initialOptions, this.options, additional)
-    if (typeof options.body === 'object') {
-      options.body = JSON.stringify(options.body)
-      options.headers['content-length'] = `${Buffer.byteLength(options.body)}`
-    }
+    Requester.shapeRequest(options)
     this.print.debug(`Request to ${initial.url}`, options)
     delete options.headers.connection
     // console.log(options)
