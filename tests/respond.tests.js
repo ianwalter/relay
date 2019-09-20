@@ -47,15 +47,14 @@ test('respond returns a 404 response successfully', async ctx => {
   await midServer.close()
 })
 
-// FIXME: why is this test so slow?
-test('respond (static) returns a 500 response successfully', async ctx => {
+test('respond (static) returns a 401 response successfully', async ctx => {
   const endServer = await createMockServer()
   const midServer = await createExpressServer()
   midServer.locals.relay = new Relay({ baseUrl: endServer.url })
   const path = '/error'
   midServer.delete(path, Relay.request(), Relay.respond())
   const response = await requester.delete(`${midServer.url}${path}`)
-  ctx.expect(response.statusCode).toBe(500)
+  ctx.expect(response.statusCode).toBe(400)
   await endServer.close()
   await midServer.close()
 })

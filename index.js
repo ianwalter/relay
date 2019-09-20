@@ -61,8 +61,6 @@ module.exports = class Relay {
     const options = merge(initialOptions, this.options, additional)
     Requester.shapeRequest(options)
     this.print.debug(`Request to ${initial.url}`, options)
-    delete options.headers.connection
-    // console.log(options)
     return got(initial.url, options)
   }
 
