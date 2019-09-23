@@ -20,7 +20,6 @@ module.exports = class Relay {
       const { relay, ...rest } = handleOptions(options, req, res, next)
       if (req.app.locals[relay]) {
         const response = await req.app.locals[relay].request(req, rest)
-        Requester.shapeResponse(response)
         req.relay = response
         req.app.locals[relay].print.debug('Static request result', req.relay)
         next()
@@ -45,7 +44,7 @@ module.exports = class Relay {
     return async (req, res, next) => {
       const { relay, ...rest } = handleOptions(options, req, res, next)
       if (req.app.locals[relay]) {
-        await req.app.locals[relay].proxy(rest)(req, res, next)
+        await req.app.locals[relay].proxy(rest)(req, res)
       } else {
         next(new Error(`${relay} not found in app.locals`))
       }
@@ -61,7 +60,9 @@ module.exports = class Relay {
     const options = merge(initialOptions, this.options, additional)
     Requester.shapeRequest(options)
     this.print.debug(`Request to ${initial.url}`, options)
-    return got(initial.url, options)
+    const response = await got(initial.url, options)
+    Requester.shapeResponse(response)
+    return response
   }
 
   respond (res, { req, headers, statusCode, body }) {

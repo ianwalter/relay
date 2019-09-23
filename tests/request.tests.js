@@ -11,8 +11,7 @@ test('request relays a GET request', async ({ expect, fail }) => {
   const path = '/could-it-be'
   midServer.get(path, async (req, res) => {
     try {
-      const response = await relay.request(req)
-      const body = JSON.parse(response.body)
+      const { body } = await relay.request(req)
       expect(body.foo).toBe('Hello World!')
     } catch (err) {
       fail(err)
