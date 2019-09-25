@@ -20,7 +20,14 @@ module.exports = class Relay {
       const { relay, ...rest } = handleOptions(options, req, res, next)
       if (req.app.locals[relay]) {
         const response = await req.app.locals[relay].request(req, rest)
-        req.relay = response
+
+        // Shape the response so it's more convenient to work with. Also remove
+        // the content headers so that there's no mismatch if different content
+        // is sent via the respond method.
+        req.relay = Requester.shapeResponse(response)
+        delete req.relay.headers['content-encoding']
+        delete req.relay.headers['content-type']
+
         req.app.locals[relay].print.debug('Static request result', req.relay)
         next()
       } else {
@@ -60,14 +67,16 @@ module.exports = class Relay {
     const options = merge(initialOptions, this.options, additional)
     Requester.shapeRequest(options)
     this.print.debug(`Request to ${initial.url}`, options)
-    const response = await got(initial.url, options)
-    Requester.shapeResponse(response)
-    return response
+    return got(initial.url, options)
   }
 
   respond (res, { req, headers, statusCode, body }) {
     this.print.debug(`${statusCode} response to ${req.path}`, headers, body)
-    res.set(headers).status(statusCode).send(body)
+    if (typeof body === 'object') {
+      res.set(headers).status(statusCode).json(body)
+    } else {
+      res.set(headers).status(statusCode).send(body)
+    }
   }
 
   proxy (options) {
