@@ -73,11 +73,7 @@ module.exports = class Relay {
 
   respond (res, { req, headers, statusCode, body }) {
     this.print.debug(`${statusCode} response to ${req.path}`, headers, body)
-    if (typeof body === 'object') {
-      res.set(headers).status(statusCode).json(body)
-    } else {
-      res.set(headers).status(statusCode).send(body)
-    }
+    res.set(headers).status(statusCode).send(body)
   }
 
   proxy (options) {
