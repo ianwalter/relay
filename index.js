@@ -10,7 +10,7 @@ const handleOptions = (options = {}, req, res, next) => merge(
 
 module.exports = class Relay {
   constructor (options = {}) {
-    const defaults = { throwHttpErrors: false }
+    const defaults = { throwHttpErrors: false, decompress: false }
     this.options = merge({ logLevel: 'info' }, defaults, options)
     this.print = new Print({ level: this.options.logLevel })
   }
@@ -27,6 +27,7 @@ module.exports = class Relay {
         req.relay = Requester.shapeResponse(response)
         delete req.relay.headers['content-encoding']
         delete req.relay.headers['content-type']
+        delete req.relay.headers['content-length']
 
         req.app.locals[relay].print.debug('Static request result', req.relay)
         next()
