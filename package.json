@@ -1,6 +1,6 @@
 {
   "name": "@ianwalter/relay",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "A flexible API to forward HTTP requests to another server",
   "main": "index.js",
   "scripts": {
