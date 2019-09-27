@@ -29,7 +29,10 @@ module.exports = class Relay {
         delete req.relay.headers['content-type']
         delete req.relay.headers['content-length']
 
-        req.app.locals[relay].print.debug('Static request result', req.relay)
+        req.app.locals[relay].print.debug(
+          'Static request result', 
+          req.relay.req
+        )
         next()
       } else {
         next(new Error(`${relay} not found in app.locals`))
