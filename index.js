@@ -29,9 +29,10 @@ module.exports = class Relay {
         delete req.relay.headers['content-type']
         delete req.relay.headers['content-length']
 
+        const { statusCode, statusText, headers, body } = req.relay
         req.app.locals[relay].print.debug(
-          'Static request result', 
-          req.relay.req
+          'Static request result',
+          { statusCode, statusText, headers, body }
         )
         next()
       } else {
