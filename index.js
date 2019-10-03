@@ -75,9 +75,15 @@ module.exports = class Relay {
     return got(initial.url, options)
   }
 
-  respond (res, { req, headers, statusCode, body }) {
-    this.print.debug(`${statusCode} response to ${req.path}`, headers, body)
-    res.set(headers).status(statusCode).send(body)
+  respond (res, relayRes) {
+    const { headers, statusCode, body, requestUrl } = relayRes
+    if (statusCode) {
+      this.print.debug(`${statusCode} response to ${requestUrl}`, headers, body)
+      res.set(headers).status(statusCode).send(body)
+    } else {
+      this.print.debug('Piping response stream')
+      relayRes.pipe(res)
+    }
   }
 
   proxy (options) {
