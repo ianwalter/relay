@@ -4630,7 +4630,7 @@ specifiers:
   '@ianwalter/bff': ^9.12.1
   '@ianwalter/eslint-config': ^6.2.0
   '@ianwalter/merge': ^5.0.0
-  '@ianwalter/print': ^3.4.0
+  '@ianwalter/print': ^3.9.0
   '@ianwalter/release': ^5.0.2
   '@ianwalter/renovate-config': ^1.4.1
   '@ianwalter/requester': ^1.10.1
