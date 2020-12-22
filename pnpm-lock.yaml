@@ -4633,6 +4633,6 @@ specifiers:
   '@ianwalter/print': ^3.4.0
   '@ianwalter/release': ^5.0.2
   '@ianwalter/renovate-config': ^1.4.1
-  '@ianwalter/requester': ^1.10.1
+  '@ianwalter/requester': ^1.10.2
   '@ianwalter/test-server': ^2.1.0
   got: ^9.6.0
