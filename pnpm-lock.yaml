@@ -1,5 +1,5 @@
 dependencies:
-  '@ianwalter/merge': 5.0.0
+  '@ianwalter/merge': 9.0.1
   '@ianwalter/print': 3.9.0
   '@ianwalter/requester': 1.10.2
   got: 9.6.0
@@ -277,7 +277,6 @@ packages:
     resolution:
       integrity: sha512-Ohskh/vqQFgW2Abaxd3kPYz/uNqoUmCSjU8kB8SoRieQqIOyXit1pFKYW4HmcoRcDFbktpWmS1QpIBoF74DGBg==
   /@ianwalter/merge/9.0.1:
-    dev: true
     resolution:
       integrity: sha512-Wu7eAZEsfuW0FJsVsdsNaWAtlY/6Viy74HQpZ8A81KutjhNO5cyPRkiBGletuX9kDUTOdSwWJokPnu/o4yE3KA==
   /@ianwalter/print/3.9.0:
@@ -4629,7 +4628,7 @@ packages:
 specifiers:
   '@ianwalter/bff': ^9.12.1
   '@ianwalter/eslint-config': ^6.2.0
-  '@ianwalter/merge': ^5.0.0
+  '@ianwalter/merge': ^9.0.1
   '@ianwalter/print': ^3.4.0
   '@ianwalter/release': ^5.0.2
   '@ianwalter/renovate-config': ^1.4.1
